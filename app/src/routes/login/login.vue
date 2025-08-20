@@ -43,7 +43,6 @@ const authenticated = computed(() => appStore.authenticated);
 useHead({
 	title: t('sign_in'),
 });
-alert('Login page loaded successfully!');
 </script>
 
 <template>
