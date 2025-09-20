@@ -8,7 +8,7 @@ import { createHead } from '@unhead/vue';
 import { createPinia } from 'pinia';
 import App from './app.vue';
 import { registerComponents } from './components/register';
-import { DIRECTUS_LOGO } from './constants';
+// import { DIRECTUS_LOGO } from './constants';
 import { registerDirectives } from './directives/register';
 import { loadExtensions, registerExtensions } from './extensions';
 import { i18n } from './lang/';
@@ -19,15 +19,7 @@ import { registerViews } from './views/register';
 init();
 
 async function init() {
-	console.log(DIRECTUS_LOGO);
 
-	console.info(
-		`Hey! Interested in helping build this open-source data management platform?\nIf so, join our growing team of contributors at: https://directus.chat`,
-	);
-
-	console.info(`%c🐰 Starting Directus...`, 'color:Green');
-
-	console.time('🕓 Application Loaded');
 
 	const app = createApp(App);
 
@@ -54,12 +46,12 @@ async function init() {
 
 	app.mount('#app');
 
-	console.timeEnd('🕓 Application Loaded');
+	// console.timeEnd('🕓 Application Loaded');
 
-	console.group(`%c✨ Project Information`, 'color:DodgerBlue'); // groupCollapsed
+	// console.group(`%c✨ Project Information`, 'color:DodgerBlue'); // groupCollapsed
 
-	console.info(`%cEnvironment: ${import.meta.env.MODE}`, 'color:DodgerBlue');
-	console.groupEnd();
+	// console.info(`%cEnvironment: ${import.meta.env.MODE}`, 'color:DodgerBlue');
+	// console.groupEnd();
 
 	// Prevent the browser from opening files that are dragged on the window
 	window.addEventListener('dragover', (e) => e.preventDefault(), false);
