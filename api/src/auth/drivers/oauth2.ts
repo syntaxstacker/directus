@@ -275,7 +275,7 @@ export class OAuth2AuthDriver extends LocalAuthDriver {
 			},
 			{ database: getDatabase(), schema: this.schema, accountability: null },
 		);
-
+		logger.debug('Creating user with payload:', JSON.stringify(updatedUserPayload, null, 2));
 		try {
 			await this.usersService.createOne(updatedUserPayload);
 		} catch (e) {
