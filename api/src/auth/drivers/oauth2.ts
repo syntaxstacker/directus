@@ -276,19 +276,19 @@ export class OAuth2AuthDriver extends LocalAuthDriver {
 			{ database: getDatabase(), schema: this.schema, accountability: null },
 		);
 // 在 oauth2.ts 第278-279行，替换为：
-logger.debug('Facebook userInfo type:', typeof userInfo);
-logger.debug('Facebook userInfo:', userInfo ? JSON.stringify(userInfo, null, 2) : 'undefined');
-logger.debug('updatedUserPayload type:', typeof updatedUserPayload);
-logger.debug('updatedUserPayload:', updatedUserPayload ? JSON.stringify(updatedUserPayload, null, 2) : 'undefined');
+logger.warn('oauth2 userInfo type:', typeof userInfo);
+logger.warn('Facebook userInfo:', userInfo ? JSON.stringify(userInfo, null, 2) : 'undefined');
+logger.warn('updatedUserPayload type:', typeof updatedUserPayload);
+logger.warn('updatedUserPayload:', updatedUserPayload ? JSON.stringify(updatedUserPayload, null, 2) : 'undefined');
 
 // 也可以分别检查每个字段
 if (updatedUserPayload) {
-    logger.debug('updatedUserPayload.email:', updatedUserPayload.email);
-    logger.debug('updatedUserPayload.role:', updatedUserPayload.role);
-    logger.debug('updatedUserPayload.provider:', updatedUserPayload.provider);
-    logger.debug('updatedUserPayload keys:', Object.keys(updatedUserPayload));
+    logger.warn('updatedUserPayload.email:', updatedUserPayload.email);
+    logger.warn('updatedUserPayload.role:', updatedUserPayload.role);
+    logger.warn('updatedUserPayload.provider:', updatedUserPayload.provider);
+    logger.warn('updatedUserPayload keys:', Object.keys(updatedUserPayload));
 } else {
-    logger.debug('updatedUserPayload is null/undefined!');
+    logger.warn('updatedUserPayload is null/undefined!');
 }
 		try {
 			await this.usersService.createOne(updatedUserPayload);
