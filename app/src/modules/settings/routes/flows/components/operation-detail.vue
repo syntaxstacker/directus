@@ -47,7 +47,7 @@ const isOperationKeyUnique = computed(
 );
 
 const saveDisabled = computed(() => {
-	return !operationType.value || !isOperationKeyUnique.value;
+    return !operationType.value || !isOperationKeyUnique.value || missingRequiredFields.value.length > 0;
 });
 
 watch(
@@ -116,6 +116,33 @@ const operationOptions = computed(() => {
 	return undefined;
 });
 
+// 基于字段 meta.required 的简易必填校验（仅用于禁用保存按钮）
+const missingRequiredFields = computed<string[]>(() => {
+    const fields = operationOptions.value as unknown as Field[] | undefined;
+    if (!fields) return [];
+
+    const missing: string[] = [];
+
+    for (const field of fields) {
+        const isRequired = (field as any)?.meta?.required === true;
+        if (!isRequired) continue;
+
+        const value = (options.value as Record<string, any>)[field.field as string];
+
+        const isEmpty =
+            value === undefined ||
+            value === null ||
+            (typeof value === 'string' && value.trim() === '') ||
+            (Array.isArray(value) && value.length === 0);
+
+        if (isEmpty) {
+            missing.push((field as any).name || (field.field as string));
+        }
+    }
+
+    return missing;
+});
+
 function saveOperation() {
 	if (saveDisabled.value) return;
 
@@ -177,6 +204,11 @@ function saveOperation() {
 			</div>
 
 			<v-divider />
+
+		<!-- <v-notice v-if="missingRequiredFields.length > 0" class="not-found" type="danger">
+			{{ t('fill_required_fields') || 'Please fill all required fields:' }}
+			<strong> {{ missingRequiredFields.join(', ') }} </strong>
+		</v-notice> -->
 
 			<v-fancy-select v-model="operationType" class="select" :items="displayOperations" />
 

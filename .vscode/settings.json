@@ -1,4 +1,7 @@
 {
 	"scssFormatter.singleQuote": true,
-	"stylelint.validate": ["css", "scss", "vue"]
+	"stylelint.validate": ["css", "scss", "vue"],
+	// "liveServer.settings.port":5502,
+	// "typescript.validate.enable": false,
+	// "javascript.validate.enable":false
 }

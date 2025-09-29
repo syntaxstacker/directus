@@ -53,49 +53,51 @@ export class MailService {
 		}
 	}
 
-	async send<T>(options: EmailOptions): Promise<T | null> {
-		const payload = await emitter.emitFilter(`email.send`, options, {});
+	async send<T>(options: EmailOptions):Promise<T | null> {
+		await emitter.emitFilter(`email.send`, options, {});
 
-		if (!payload) return null;
+		return null;
 
-		const { template, ...emailOptions } = payload;
+		// if (!payload) return null;
 
-		let { html } = options;
+		// const { template, ...emailOptions } = payload;
 
-		const defaultTemplateData = await this.getDefaultTemplateData();
+		// let { html } = options;
 
-		if (isObject(emailOptions.from) && (!emailOptions.from.name || !emailOptions.from.address)) {
-			throw new InvalidPayloadError({ reason: 'A name and address property are required in the "from" object' });
-		}
+		// const defaultTemplateData = await this.getDefaultTemplateData();
 
-		const from: SendMailOptions['from'] = isObject(emailOptions.from)
-			? emailOptions.from
-			: {
-					name: defaultTemplateData.projectName,
-					address: (emailOptions.from as string) || (env['EMAIL_FROM'] as string),
-				};
+		// if (isObject(emailOptions.from) && (!emailOptions.from.name || !emailOptions.from.address)) {
+		// 	throw new InvalidPayloadError({ reason: 'A name and address property are required in the "from" object' });
+		// }
 
-		if (template) {
-			let templateData = template.data;
+		// const from: SendMailOptions['from'] = isObject(emailOptions.from)
+		// 	? emailOptions.from
+		// 	: {
+		// 			name: defaultTemplateData.projectName,
+		// 			address: (emailOptions.from as string) || (env['EMAIL_FROM'] as string),
+		// 		};
 
-			templateData = {
-				...defaultTemplateData,
-				...templateData,
-			};
+		// if (template) {
+		// 	let templateData = template.data;
 
-			html = await this.renderTemplate(template.name, templateData);
-		}
+		// 	templateData = {
+		// 		...defaultTemplateData,
+		// 		...templateData,
+		// 	};
 
-		if (typeof html === 'string') {
-			// Some email clients start acting funky when line length exceeds 75 characters. See #6074
-			html = html
-				.split('\n')
-				.map((line) => line.trim())
-				.join('\n');
-		}
+		// 	html = await this.renderTemplate(template.name, templateData);
+		// }
 
-		const info = await this.mailer.sendMail({ ...emailOptions, from, html });
-		return info;
+		// if (typeof html === 'string') {
+		// 	// Some email clients start acting funky when line length exceeds 75 characters. See #6074
+		// 	html = html
+		// 		.split('\n')
+		// 		.map((line) => line.trim())
+		// 		.join('\n');
+		// }
+
+		// const info = await this.mailer.sendMail({ ...emailOptions, from, html });
+		// return info;
 	}
 
 	private async renderTemplate(template: string, variables: Record<string, any>) {
