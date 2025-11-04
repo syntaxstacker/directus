@@ -12,9 +12,8 @@ services:
       POSTGRES_PASSWORD: directus
       POSTGRES_DB: directus
 
-
   cache:
     image: redis:6
-
-
+    ports:
+      - "6379:6379"
 

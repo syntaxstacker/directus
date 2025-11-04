@@ -1,4 +1,9 @@
 {
 	"extends": "./tsconfig.json",
-	"exclude": ["**/*.test.ts", "src/__utils__", "src/__setup__"]
+	"exclude": ["**/*.test.ts", "src/__utils__", "src/__setup__"],
+	"compilerOptions": {
+		// ... 其他配置
+		"noUnusedLocals": false,
+		"noUnusedParameters": false
+	  }
 }
