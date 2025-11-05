@@ -53,8 +53,3 @@ TODO
 /packages/extensions-sdk/temp-extension-*/
 
 
-
-#本地忽略
-/database
-/uploads
-/data

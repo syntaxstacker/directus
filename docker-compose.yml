@@ -1,7 +1,7 @@
 name: directus-cms-template
 services:
   database:
-    image: postgis/postgis:16-master
+    image: postgis/postgis:13-master
     ports:
       - "5432:5432"
     platform: linux/amd64
